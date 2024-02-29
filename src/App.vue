@@ -3,21 +3,41 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
+  <div class="sidebar">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Início</RouterLink>
+        <RouterLink to="/ficha">Ficha</RouterLink>
+        <RouterLink to="/atleta">Atleta</RouterLink>
       </nav>
-  </header>
-
+  </div>
+  <div class="content">
+    <header>
+      Projeto Academia
+    </header>
   <RouterView />
+</div>
 </template>
 
 <style scoped>
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 12rem;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
 header {
   line-height: 1.5;
   background-color: lightgray;
   height: 4rem;
+}
+
+div.content {
+  margin-left: 12rem;
+  height: auto;
 }
 
 nav {
@@ -28,20 +48,25 @@ nav {
  
 }
 
-
-
 nav a.router-link-exact-active {
   color: var(--color-text);
+  background-color:#d3d3d3;
 }
 
 nav a.router-link-exact-active:hover {
-  background-color: transparent;
+  background-color:#d3d3d3;
 }
 
 nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  display: block;
+  color: #000000;
+  width: auto;
+  padding: 10px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: #f0f8ff;
 }
 
 nav a:first-of-type {
@@ -49,22 +74,21 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
+
   header {
     display: flex;
+    text-align: center;
+    justify-content: center;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }
 
   nav {
-    text-align: left;
-    margin-left: -1rem;
+    text-align: center;
     font-size: 1rem;
     justify-content: center;
-    display: flex;
-
     padding: 1rem 0;
-    margin-top: 0.2rem;
-    /* margin-left: 40%; */
+    margin-top: 5rem;
   }
 }
 </style>
