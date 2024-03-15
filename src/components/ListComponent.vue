@@ -9,9 +9,9 @@ defineProps<{
 
 <template>
   <div class="card shadow">
-    <div class="container row mt-4 mx-2">
-      <input class="col-6" type="text" />
-      <div class="col-6 row justify-content-end mx-0">
+    <div class="container-fluid row w-100 mt-4 mx-2">
+      <input class="input-search col-5" type="text"/>
+      <div class="col-7 row justify-content-end mx-0">
         <button class="col-2 bg-success text-bg-primary">Criar</button>
       </div>
     </div>
@@ -26,8 +26,8 @@ defineProps<{
           <div class="col-12">
             <div class="border pt-3 pb-3 d-flex" v-for="(item, key) in items" :key="key">
               <div class="col-3 text-center">{{ item.nome ? item.nome : 'Não há dados' }}</div>
-              <div class="col-3 text-center">{{ item.Data ? item.Data : 'Não há dados' }}</div>
-              <div class="col-3 text-center">{{ item.Status ? item.Status : 'Não há dados' }}</div>
+              <div class="col-3 text-center">{{ item.data ? item.data : 'Não há dados' }}</div>
+              <div class="col-3 text-center">{{ item.status ? item.status : 'Não há dados' }}</div>
 
               <div class="container button row justify-content-end">
                 <button class="col-2 bg-warning text-bg-primary">

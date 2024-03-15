@@ -73,6 +73,11 @@ i {
   color: #000000;
 }
 
+.input-search {
+  border: 1;
+  border-radius: 3px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
