@@ -1,4 +1,6 @@
 <script setup lang="ts">
+
+
 defineProps<{
   items?: any
   pagination?: any
@@ -6,6 +8,13 @@ defineProps<{
   search?: string
   title: string
 }>()
+
+const emit = defineEmits(['open-create', 'open-edit'])
+
+function btnClick(params: any) {
+    emit('open-create')
+}
+
 </script>
 
 <template>
@@ -14,7 +23,7 @@ defineProps<{
     <div class="container-fluid row w-100 mt-4 mx-2">
       <input class="input-search col-5" type="text"/>
       <div class="col-7 row justify-content-end mx-0">
-        <button class="col-2 bg-success text-bg-primary">Criar</button>
+        <button class="col-2 bg-success text-bg-primary" @click="btnClick">Criar</button>
       </div>
     </div>
     <div class="body col-sm-6 col-md-6">
