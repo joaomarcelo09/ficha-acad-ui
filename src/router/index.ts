@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FichaViewVue from '@/views/FichaView.vue'
 import AthleteViewVue from '@/views/AthleteView.vue'
+import FichaForm from '@/forms/FichaForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +15,18 @@ const router = createRouter({
     {
       path: '/ficha',
       name: 'ficha',
-      component: FichaViewVue
+      children: [
+        {
+          path:'form',
+          name: 'form',
+          component: FichaForm
+        },
+        {
+          path:'list',
+          name: 'list',
+          component: FichaViewVue
+        }
+      ]
     },
     {
       path: '/atleta',
