@@ -4,10 +4,12 @@ defineProps<{
   pagination?: any
   columns?: any
   search?: string
+  title: string
 }>()
 </script>
 
 <template>
+  <div class="container-fluid page-title">{{ title }}</div>
   <div class="card shadow">
     <div class="container-fluid row w-100 mt-4 mx-2">
       <input class="input-search col-5" type="text"/>
