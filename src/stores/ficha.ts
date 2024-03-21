@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import * as $Sficha from '../api/services/ficha'
 
 export const useFichaStore = defineStore('ficha', {
 
@@ -16,5 +17,20 @@ export const useFichaStore = defineStore('ficha', {
             }
         ]
         }
-    }
+    },
+
+    actions: {
+        async findAll() {
+          try {
+
+          return await $Sficha.FindAll()
+            
+          } catch (error) {
+            console.log(error)
+            return error
+          }
+        },
+      },
+
+
 })

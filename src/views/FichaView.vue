@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ListComponent from '@/components/ListComponent.vue';
 import { useFichaStore } from '@/stores/ficha';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
@@ -17,6 +17,10 @@ const title = ref('Ficha')
 const openCreate = () => {
     router.push('form')
 }
+
+onMounted(async () => {
+    await $fichaStore.findAll()
+})
 
 
 
