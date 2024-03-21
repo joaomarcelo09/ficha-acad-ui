@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import ListComponent from '@/components/ListComponent.vue';
+import { useFichaStore } from '@/stores/ficha';
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const $fichaStore = useFichaStore()
 // const route = useRoute()
 
 
-const items = ref([{nome: 'Joao Marcelo', data: '16/01/2024', status: 'Malhando' }, 'item 2'])
+const items = $fichaStore.fichas
 const columns = ref(['Nome', 'Data', 'Status'])
 const pages = ref([1,2,3])
 const title = ref('Ficha')

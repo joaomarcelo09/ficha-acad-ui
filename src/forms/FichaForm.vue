@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import FormComponent from '@/components/form/FormComponent.vue'
+import FormInput from '@/components/form/FormInput.vue'
 
 
 
@@ -7,7 +9,15 @@ import { ref } from 'vue';
 
 <template>
     <div class="body">
-        <h1>teste</h1>
+        <FormComponent>
+            <template #fields>
+                <div class="row justify-content-center">
+                <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small"/>
+                <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small"/>
+                <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small"/>
+                </div>
+            </template>
+        </FormComponent>
     </div>
 </template>
 
