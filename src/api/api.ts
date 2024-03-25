@@ -6,11 +6,6 @@ const {
 
 const axiosInstance = (config?: AxiosRequestConfig) => axios.create({
       baseURL: config?.baseURL || VITE_API_URL.toString(),
-      headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Origin, Content-Type"
-          },
       timeout: config?.timeout || 60000,
 });
 
