@@ -22,8 +22,8 @@ function btnClick(params: any) {
   <div class="card shadow">
     <div class="container-fluid row w-100 mt-4 mx-2">
       <input class="input-search col-5" type="text"/>
-      <div class="col-7 row justify-content-end mx-0">
-        <button class="col-2 bg-success text-bg-primary" @click="btnClick">Criar</button>
+      <div class="col-7 d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-success" @click="btnClick">Criar</button>
       </div>
     </div>
     <div class="body col-sm-6 col-md-6">
@@ -40,11 +40,11 @@ function btnClick(params: any) {
               <div class="col-3 text-center">{{ item.data ? item.data : 'Não há dados' }}</div>
               <div class="col-3 text-center">{{ item.status ? item.status : 'Não há dados' }}</div>
 
-              <div class="container button row justify-content-end">
-                <button class="col-2 bg-warning text-bg-primary">
+              <div class="col-3 d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-warning">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button class="col-2 bg-danger text-bg-primary">
+                <button class="btn btn-danger">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </div>
