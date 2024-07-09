@@ -15,10 +15,10 @@
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 14rem;
+  width: 12%;
   background-color: #282c34;
-  position: fixed;
-  height: 100%;
+  /* position: fixed; */
+  /* height: 100%; */
   overflow: auto;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
