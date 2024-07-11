@@ -1,38 +1,33 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import Sidebar from './components/struture/SideBar.vue'
+import Header from './components/struture/HeaderBar.vue'
 </script>
 
 <template>
-  <Sidebar />
-
-  <div class="content">
-    <header>Projeto Academia</header>
-    <RouterView />
+  <div class="main-container">
+    <Sidebar />
+    <div class="content">
+      <Header />
+      <RouterView />
+    </div>
   </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  background-color: lightgray;
-  height: 4rem;
+.main-container {
+  display: flex;
+  position: fixed;
+  background-color: var(--light-gray);
+  width: 100%;
+  height: 100%;
 }
-
 div.content {
-  margin-left: 12rem;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
   nav {
     text-align: center;
     font-size: 1rem;

@@ -15,12 +15,9 @@
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 14rem;
-  background-color: #282c34;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: 15%;
+  background-color: var(--dark-gray);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-header {
@@ -37,7 +34,6 @@
 
 nav {
   width: 100%;
-  text-align: left;
   margin-top: 2rem;
 }
 
