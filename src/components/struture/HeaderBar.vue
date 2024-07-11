@@ -9,12 +9,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #4caf50;
-  color: #ffffff;
+  background-color: var(--green);
+  color: var(--white);
   height: 4rem;
   padding: 0 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+  font-family: var(--arial);
   position: relative;
 }
 
@@ -25,7 +25,6 @@
 
 @media (min-width: 1024px) {
   .header {
-    justify-content: center;
     padding-right: calc(var(--section-gap) / 2);
   }
 }

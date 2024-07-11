@@ -18,13 +18,13 @@ import Header from './components/struture/HeaderBar.vue'
 .main-container {
   display: flex;
   position: fixed;
-  background-color: #f0f2f5;
+  background-color: var(--light-gray);
   width: 100%;
   height: 100%;
 }
 div.content {
-  width: 88%;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 1024px) {
