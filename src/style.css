@@ -10,11 +10,11 @@
 
 .page-title {
   font-size: 24px;
-  font-weight: semi-bold; 
-  color: #333; 
+  font-weight: semi-bold;
+  color: #333;
   text-align: start;
-  margin-top: 20px; 
-  margin-bottom: 20px; 
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 button {
@@ -27,19 +27,16 @@ i {
   color: #000000;
 }
 
-.input-search {
-  border: 1;
-  border-radius: 3px;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }

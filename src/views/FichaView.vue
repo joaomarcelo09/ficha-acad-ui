@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListComponent from '@/components/ListComponent.vue'
+import List from '@/components/List.vue'
 import { useFichaStore } from '@/stores/ficha'
 import { onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -24,7 +24,7 @@ onMounted(async () => {
 
 <template>
   <div class="body">
-    <ListComponent
+    <List
       @open-create="openCreate"
       :title="title"
       :items="items"
