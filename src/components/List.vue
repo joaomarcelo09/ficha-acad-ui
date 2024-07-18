@@ -16,35 +16,41 @@ const create = (): void => {
 </script>
 
 <template>
-  <div class="container-fluid page-title">{{ title }}</div>
-  <div class="card shadow overflow-x">
-    <table class="table">
-      <thead>
-        <tr>
-          <th v-for="(title, index) in columns" :key="index">
-            {{ title }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, index) of rows" :key="index">
-          <td v-for="(data, dataIndex) of row" :key="dataIndex">{{ data }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="container mx-2">
-      <nav>
-        <ul class="pagination pagination-sm">
-          <li v-for="pages in pagination" :key="pages" class="page-item">
-            <a class="page-link" href="#"> {{ pages }}</a>
-          </li>
-        </ul>
-      </nav>
+  <div class="list px-4">
+    <div class="container-fluid page-title">{{ title }}</div>
+    <div class="card shadow p-2 overflow-x">
+      <table class="table">
+        <thead>
+          <tr>
+            <th v-for="(title, index) in columns" :key="index">
+              {{ title }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, index) of rows" :key="index">
+            <td v-for="(data, dataIndex) of row" :key="dataIndex">{{ data }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <nav>
+          <ul class="pagination pagination-sm">
+            <li v-for="pages in pagination" :key="pages" class="page-item">
+              <a class="page-link" href="#"> {{ pages }}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.list {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .body {
   margin-top: 2rem;
   width: 100%;

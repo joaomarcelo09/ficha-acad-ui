@@ -20,9 +20,9 @@ const gettedByStore = ref([
 ])
 
 const pages = ref([1, 2, 3])
+const columns = ['Peso', 'Altura', 'Biotipo', 'Status', 'Criado em']
 const fieldsSelected = ['peso', 'altura', 'biotipo', 'status', 'created_at']
 
-const columns = computed(() => getColumnsByJson(gettedByStore.value, fieldsSelected))
 const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
 </script>
 

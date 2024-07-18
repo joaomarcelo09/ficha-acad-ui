@@ -80,8 +80,8 @@ const fieldsSelected = [
   'peso_maximo',
   'biotipo'
 ]
+const columns = ['Nome', 'Altura mínima', 'Altura máxima', 'Peso mínimo', 'Peso máximo', 'Biotipo']
 
-const columns = computed(() => getColumnsByJson(gettedByStore.value, fieldsSelected))
 const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
 
 const openCreate = () => {
