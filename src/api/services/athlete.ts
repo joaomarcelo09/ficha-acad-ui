@@ -2,7 +2,7 @@ import type { IFicha } from "@/types/Ficha";
 import { http } from "../api";
 import type { AxiosResponse } from 'axios'
 
-const router: string = 'ficha'
+const router: string = 'atleta'
 
 export async function FindAll() {
 
@@ -17,6 +17,10 @@ export async function Create(data: IFicha): Promise<AxiosResponse> {
 }
 
 export async function Update(data: IFicha, id: number): Promise<AxiosResponse> {
+    return await http.post(`${router}/${id}`, data)
+}
+
+export async function Revaluation(data: IFicha, id: number): Promise<AxiosResponse> {
     return await http.post(`${router}/${id}`, data)
 }
 
