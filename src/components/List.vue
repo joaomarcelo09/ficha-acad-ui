@@ -1,16 +1,14 @@
 <script setup lang="ts">
 const props = defineProps<{
-  rows: any[]
+  rows: (string | number)[][]
   columns: string[]
   pagination?: any
   search?: string
   title: string
-  inputPlaceholder: string
+  inputPlaceholder?: string
 }>()
 
 const emit = defineEmits(['open-create', 'open-edit'])
-
-console.log(props.rows, 'rows', props.columns, 'columns')
 
 const create = (): void => {
   emit('open-create')
@@ -29,8 +27,7 @@ const create = (): void => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row" v-for="(row, index) of rows" :key="index">{{ row }}</th>
+        <tr v-for="(row, index) of rows" :key="index">
           <td v-for="(data, dataIndex) of row" :key="dataIndex">{{ data }}</td>
         </tr>
       </tbody>
