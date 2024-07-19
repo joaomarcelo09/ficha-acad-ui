@@ -8,7 +8,7 @@ const router = useRouter()
 const $fichaStore = useFichaStore()
 // const route = useRoute()
 
-const items = $fichaStore.fichas
+const items = $fichaStore.ficha
 const columns = ref(['Nome', 'Data', 'Status'])
 const pages = ref([1, 2, 3])
 const title = ref('Ficha')

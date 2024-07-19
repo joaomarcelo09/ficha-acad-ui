@@ -24,6 +24,6 @@ export async function FindById(id: string | number): Promise<AxiosResponse> {
     return await http.get(`${router}/${id}`)
 }
 
-export async function Delete(id: string): Promise<AxiosResponse> {
+export async function Delete(id: string | number): Promise<AxiosResponse> {
     return await http.delete(`${router}/${id}`)
 }
