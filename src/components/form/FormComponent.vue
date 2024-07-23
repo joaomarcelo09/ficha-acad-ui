@@ -21,18 +21,11 @@ defineProps<{
         </div>
         <div class="d-flex justify-content-between mt-4">
           <button type="button" class="btn btn-secondary">Voltar</button>
-          <button type="submit" class="btn btn-primary">Criar</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-.page-title {
-  height: 2rem;
-}
-.card {
-  width: 60%;
-}
-</style>
+<style scoped></style>

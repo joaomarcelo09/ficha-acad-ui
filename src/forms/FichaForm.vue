@@ -11,6 +11,8 @@ import FormInput from '@/components/form/FormInput.vue'
         <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small" />
         <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small" />
         <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small" />
+        <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small" />
+        <FormInput label="Teste label" placeholder="teste placeholder" smalltext="teste small" />
       </template>
     </FormComponent>
   </div>
@@ -18,8 +20,6 @@ import FormInput from '@/components/form/FormInput.vue'
 
 <style scoped>
 .body {
-  margin-top: 10rem;
-  margin-left: 1%;
-  width: 98%;
+  max-width: 990px;
 }
 </style>
