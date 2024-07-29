@@ -7,9 +7,9 @@ import Header from './components/struture/HeaderBar.vue'
 <template>
   <div class="main-container">
     <Sidebar />
-    <div class="content">
+    <div class="content d-flex flex-column align-items-center">
       <Header />
-      <RouterView />
+      <RouterView class="body" />
     </div>
   </div>
 </template>
@@ -17,6 +17,7 @@ import Header from './components/struture/HeaderBar.vue'
 <style scoped>
 .main-container {
   display: flex;
+  justify-content: center;
   position: fixed;
   background-color: var(--light-gray);
   width: 100%;
@@ -25,6 +26,12 @@ import Header from './components/struture/HeaderBar.vue'
 div.content {
   width: 100%;
   height: 100%;
+  align-items: center;
+}
+
+.body {
+  margin-top: 10rem;
+  width: 95%;
 }
 
 @media (min-width: 1024px) {

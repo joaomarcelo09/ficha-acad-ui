@@ -12,6 +12,7 @@
   background-color: var(--green);
   color: var(--white);
   height: 4rem;
+  width: 100%;
   padding: 0 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: var(--arial);
