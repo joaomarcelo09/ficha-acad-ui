@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import List from '@/components/List.vue'
 import { ref, computed } from 'vue'
-import { getRowsByJson, getColumnsByJson } from '@/utils/List'
+import { getRowsByJson } from '@/utils/List'
 
 const gettedByStore = ref([
   {
@@ -19,7 +19,6 @@ const gettedByStore = ref([
   }
 ])
 
-const pages = ref([1, 2, 3])
 const columns = ['Peso', 'Altura', 'Biotipo', 'Status', 'Criado em']
 const fieldsSelected = ['peso', 'altura', 'biotipo', 'status', 'created_at']
 

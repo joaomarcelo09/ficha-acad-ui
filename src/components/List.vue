@@ -17,8 +17,19 @@ const create = (): void => {
 
 <template>
   <div class="list px-4">
-    <div class="container-fluid page-title">{{ title }}</div>
     <div class="card shadow p-2 overflow-x">
+      <div class="d-flex align-items-center px-2">
+        <h5 class="title">{{ title }}</h5>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Pesquise..."
+            aria-label="Pesquise"
+          />
+          <button class="btn btn-outline-secondary" type="button">Buscar</button>
+        </div>
+      </div>
       <table class="table">
         <thead>
           <tr>
@@ -33,14 +44,8 @@ const create = (): void => {
           </tr>
         </tbody>
       </table>
-      <div>
-        <nav>
-          <ul class="pagination pagination-sm">
-            <li v-for="pages in pagination" :key="pages" class="page-item">
-              <a class="page-link" href="#"> {{ pages }}</a>
-            </li>
-          </ul>
-        </nav>
+      <div class="d-flex justify-content-end px-4 pt-2">
+        <nav>paginacao</nav>
       </div>
     </div>
   </div>
@@ -60,20 +65,49 @@ const create = (): void => {
   overflow-x: auto;
 }
 
-.input-search {
-  padding: 10px;
-  font-size: 16px;
-  color: black;
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.search-input {
+  border-radius: 10px;
+  font-size: 1rem;
   transition:
     border-color 0.3s,
     box-shadow 0.3s;
+}
 
-  &:focus {
-    border-color: red;
-    box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
-    outline: none;
-  }
+.search-input::placeholder {
+  color: #888;
+}
+
+.input-group {
+  width: 30%;
+  margin-left: auto;
+}
+
+.input-group-text {
+  border-radius: 8px 0 0 8px;
+  background-color: #333;
+  color: #fff;
+  border: 2px solid #333;
+  border-right: none;
+}
+
+.input-group .btn {
+  border-radius: 8px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.input-group .btn:hover {
+  background-color: var(--green);
+  color: black;
+}
+
+.search-input:focus {
+  border-color: var(--green);
+  outline: none;
+}
+
+.search-input:hover {
+  border-color: var(--green);
 }
 </style>
