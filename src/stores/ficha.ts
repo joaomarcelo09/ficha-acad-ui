@@ -25,7 +25,6 @@ export const useFichaStore = defineStore('ficha', {
   actions: {
     async findAll() {
       try {
-
         return await $Sficha.FindAll()
 
       } catch (error) {

@@ -6,9 +6,18 @@ const goBack = () => {
   router.back()
 }
 
+const emit = defineEmits<{
+  (e: 'saveForm', data: any): void
+}>()
+
 defineProps<{
   title?: string
 }>()
+
+function btnSave() {
+  const formData = {}
+  emit('saveForm', formData)
+}
 </script>
 
 <template>
@@ -16,12 +25,12 @@ defineProps<{
     <div class="container-fluid page-title text-center">{{ title }}</div>
     <div class="card shadow">
       <div class="card-body">
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap">
           <slot name="fields"></slot>
         </div>
         <div class="d-flex justify-content-between mt-4">
           <button type="button" class="btn btn-secondary">Voltar</button>
-          <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="submit" @click="btnSave()" class="btn btn-success">Salvar</button>
         </div>
       </div>
     </div>
