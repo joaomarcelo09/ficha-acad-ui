@@ -21,7 +21,7 @@ function btnSave() {
 </script>
 
 <template>
-  <div class="d-flex flex-column align-items-center">
+  <div class="body d-flex flex-column align-items-center">
     <div class="container-fluid page-title text-center">{{ title }}</div>
     <div class="card shadow">
       <div class="card-body">
@@ -37,4 +37,8 @@ function btnSave() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.btn {
+  margin-left: 0.9rem;
+}
+</style>

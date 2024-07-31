@@ -5,6 +5,9 @@ import FormComponent from '@/components/form/FormComponent.vue'
 import FormInput from '@/components/form/FormInput.vue'
 import { useFichaStore } from '@/stores/ficha'
 import { enumBiotipo } from '@/enum/biotipo'
+import { useNotification } from '@kyvg/vue3-notification'
+
+const { notify } = useNotification()
 
 const intensidadeSelect = ref([])
 const exerciciosSelect = ref([])
@@ -51,18 +54,31 @@ async function loadOptions() {
 }
 
 async function createFicha(bodyFicha: any) {
-  const mappedExercicios = bodyFicha.exercicios.map((id: number) => ({
-    id_exercicio: Number(id),
-    id_intensidade: Number(bodyFicha.intensidade)
-  }))
+  try {
+    const mappedExercicios = bodyFicha.exercicios.map((id: number) => ({
+      id_exercicio: Number(id),
+      id_intensidade: Number(bodyFicha.intensidade)
+    }))
 
-  const updatedBodyFicha = {
-    ...bodyFicha,
-    exercicios: mappedExercicios
+    const updatedBodyFicha = {
+      ...bodyFicha,
+      exercicios: mappedExercicios
+    }
+
+    $fichaStore.ficha = updatedBodyFicha
+
+    await $fichaStore.create()
+
+    notify({
+      title: 'Criado com sucesso',
+      type: 'success'
+    })
+  } catch (error) {
+    notify({
+      title: 'Erro na requisição',
+      type: 'error'
+    })
   }
-
-  $fichaStore.ficha = updatedBodyFicha
-  await $fichaStore.create()
 }
 
 onMounted(async () => {
@@ -86,17 +102,17 @@ onMounted(async () => {
           label="Biotipo"
         />
         <FormInput
+          v-model="bodyFicha.intensidade"
+          type="select"
+          :options-select="intensidadeSelect"
+          label="Intensidade"
+        />
+        <FormInput
           v-model="bodyFicha.exercicios"
           type="select"
           :options-select="exerciciosSelect"
           multi-select
           label="Exercícios"
-        />
-        <FormInput
-          v-model="bodyFicha.intensidade"
-          type="select"
-          :options-select="intensidadeSelect"
-          label="Intensidade"
         />
       </template>
     </FormComponent>
