@@ -12,6 +12,14 @@ export async function FindAll() {
 
 }
 
+export async function FindAllExercises() {
+
+    const request: string = router
+
+    return await http.get(`${request}/exercises`)
+
+}
+
 export async function Create(data: IFicha): Promise<AxiosResponse> {
     return await http.post(`${router}`, data)
 }
