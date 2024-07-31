@@ -27,7 +27,7 @@ const create = (): void => {
             placeholder="Pesquise..."
             aria-label="Pesquise"
           />
-          <button class="btn btn-outline-secondary" type="button">Buscar</button>
+          <button class="btn btn-outline-secondary text-black" type="button">Buscar</button>
         </div>
       </div>
       <table class="table">
@@ -45,7 +45,26 @@ const create = (): void => {
         </tbody>
       </table>
       <div class="d-flex justify-content-end px-4 pt-2">
-        <nav>paginacao</nav>
+        <nav aria-label="Navegação de página exemplo">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link text-black" href="#"
+                ><font-awesome-icon icon=" fa-angle-double-left"
+              /></a>
+            </li>
+            <li class="page-item">
+              <a class="page-link text-black" href="#"><font-awesome-icon icon="arrow-left" /></a>
+            </li>
+            <li class="page-item">
+              <a class="page-link text-black" href="#"><font-awesome-icon icon="arrow-right" /></a>
+            </li>
+            <li class="page-item">
+              <a class="page-link text-black" href="#"
+                ><font-awesome-icon icon=" fa-angle-double-right"
+              /></a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
@@ -67,6 +86,7 @@ const create = (): void => {
 
 .search-input {
   border-radius: 10px;
+  border: 1px solid rgb(202, 202, 202);
   font-size: 1rem;
   transition:
     border-color 0.3s,
@@ -74,20 +94,12 @@ const create = (): void => {
 }
 
 .search-input::placeholder {
-  color: #888;
+  color: black;
 }
 
 .input-group {
   width: 30%;
   margin-left: auto;
-}
-
-.input-group-text {
-  border-radius: 8px 0 0 8px;
-  background-color: #333;
-  color: #fff;
-  border: 2px solid #333;
-  border-right: none;
 }
 
 .input-group .btn {
