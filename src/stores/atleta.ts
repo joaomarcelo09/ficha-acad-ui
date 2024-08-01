@@ -4,7 +4,7 @@ import { enumBiotipo } from '@/enum/biotipo'
 import type { IAthlete } from '@/types/Athlete'
 import { enumTelefone } from '@/enum/telefone'
 
-export const useFichaStore = defineStore('ficha', {
+export const useAthleteStore = defineStore('athlete', {
 
     state: () => {
         return {
