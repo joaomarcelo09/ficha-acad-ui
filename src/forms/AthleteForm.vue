@@ -47,7 +47,7 @@ async function validateNumber(number: string) {
   } else if (valid.length === 8 && /^[2-5]/.test(valid)) {
     return enumTelefone.TEL
   } else {
-    return 'Número inválido'
+    return new Error('Número Inválido')
   }
 }
 
@@ -64,7 +64,7 @@ async function createAthlete(data: any) {
     })
   } catch (error) {
     notify({
-      title: 'Erro na requisição',
+      title: `${error}`,
       type: 'error'
     })
   }
