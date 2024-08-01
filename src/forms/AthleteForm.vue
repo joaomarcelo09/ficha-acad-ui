@@ -40,11 +40,11 @@ const bodyAthlete = ref({
 })
 
 async function validateNumber(number: string) {
-  const valid = number.replace(/\D/g, '')
+  const valid = number.replace(/\D/g, '').slice(2)
 
-  if (valid.length === 11 && valid[2] === '9') {
+  if (valid.length === 9 && valid[0] === '9') {
     return enumTelefone.CEL
-  } else if (valid.length === 10 && /^[2-5]/.test(valid[2])) {
+  } else if (valid.length === 8 && /^[2-5]/.test(valid)) {
     return enumTelefone.TEL
   } else {
     return 'Número inválido'
