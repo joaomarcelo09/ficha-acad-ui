@@ -1,11 +1,16 @@
 <!-- eslint-disable no-debugger -->
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import FormComponent from '@/components/form/FormComponent.vue'
 import FormInput from '@/components/form/FormInput.vue'
 import { useFichaStore } from '@/stores/ficha'
 import { enumBiotipo } from '@/enum/biotipo'
-import type { IFicha } from '@/types/Ficha'
+import { useNotification } from '@kyvg/vue3-notification'
+
+const { notify } = useNotification()
+
+const intensidadeSelect = ref([])
+const exerciciosSelect = ref([])
 
 const $fichaStore = useFichaStore()
 const bodyFicha = ref({
@@ -34,50 +39,51 @@ const biotipoSelect = ref([
   }
 ])
 
-const exerciciosSelect = ref([
-  {
-    value: 1,
-    label: 'Baixa'
-  },
-  {
-    value: 2,
-    label: 'Média'
-  },
-  {
-    value: 3,
-    label: 'Alta'
-  }
-])
+async function loadOptions() {
+  const options: any = await $fichaStore.findAllExercises()
 
-const intensidadeSelect = ref([
-  {
-    value: 1,
-    label: 'Baixa'
-  },
-  {
-    value: 2,
-    label: 'Média'
-  },
-  {
-    value: 3,
-    label: 'Alta'
-  }
-])
-
-async function createFicha(bodyFicha: any) {
-  const mappedExercicios = bodyFicha.exercicios.map((id: number) => ({
-    id_exercicio: id,
-    id_intensidade: bodyFicha.intensidade
+  exerciciosSelect.value = options.data.dataExer.rows.map((x: any) => ({
+    value: x.id,
+    label: x.titulo
   }))
 
-  const updatedBodyFicha = {
-    ...bodyFicha,
-    exercicios: mappedExercicios
-  }
-
-  $fichaStore.ficha = updatedBodyFicha
-  await $fichaStore.create()
+  intensidadeSelect.value = options.data.dataInt.rows.map((x: any) => ({
+    value: x.id,
+    label: `${x.serie}x${x.repeticao}`
+  }))
 }
+
+async function createFicha(bodyFicha: any) {
+  try {
+    const mappedExercicios = bodyFicha.exercicios.map((id: number) => ({
+      id_exercicio: Number(id),
+      id_intensidade: Number(bodyFicha.intensidade)
+    }))
+
+    const updatedBodyFicha = {
+      ...bodyFicha,
+      exercicios: mappedExercicios
+    }
+
+    $fichaStore.ficha = updatedBodyFicha
+
+    await $fichaStore.create()
+
+    notify({
+      title: 'Criado com sucesso',
+      type: 'success'
+    })
+  } catch (error) {
+    notify({
+      title: 'Erro na requisição',
+      type: 'error'
+    })
+  }
+}
+
+onMounted(async () => {
+  await loadOptions()
+})
 </script>
 
 <template>
@@ -96,17 +102,17 @@ async function createFicha(bodyFicha: any) {
           label="Biotipo"
         />
         <FormInput
+          v-model="bodyFicha.intensidade"
+          type="select"
+          :options-select="intensidadeSelect"
+          label="Intensidade"
+        />
+        <FormInput
           v-model="bodyFicha.exercicios"
           type="select"
           :options-select="exerciciosSelect"
           multi-select
           label="Exercícios"
-        />
-        <FormInput
-          v-model="bodyFicha.intensidade"
-          type="select"
-          :options-select="intensidadeSelect"
-          label="Intensidade"
         />
       </template>
     </FormComponent>

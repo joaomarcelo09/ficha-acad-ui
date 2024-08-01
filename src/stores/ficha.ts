@@ -33,6 +33,16 @@ export const useFichaStore = defineStore('ficha', {
       }
     },
 
+    async findAllExercises() {
+      try {
+        return await $Sficha.FindAllExercises()
+
+      } catch (error) {
+        console.log(error)
+        return error
+      }
+    },
+
     async create() {
       try {
         return await $Sficha.Create(this.ficha)

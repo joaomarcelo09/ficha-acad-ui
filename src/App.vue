@@ -6,6 +6,7 @@ import Header from './components/struture/HeaderBar.vue'
 
 <template>
   <div class="main-container">
+    <notifications class="notify" width="300px" closeOnClick />
     <Sidebar />
     <div class="content d-flex flex-column align-items-center">
       <Header />
@@ -23,6 +24,11 @@ import Header from './components/struture/HeaderBar.vue'
   width: 100%;
   height: 100%;
 }
+
+.notify {
+  margin: 5rem 2rem 5rem;
+}
+
 div.content {
   width: 100%;
   height: 100%;
