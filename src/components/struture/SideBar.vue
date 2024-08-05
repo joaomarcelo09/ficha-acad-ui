@@ -4,7 +4,7 @@
       <img src="/public/academia.png" alt="Academia Icon" class="sidebar-icon" />
     </div>
     <nav>
-      <RouterLink to="/" class="nav-link" active-class="active-link">Início</RouterLink>
+      <!-- <RouterLink to="/" class="nav-link" active-class="active-link">Início</RouterLink> -->
       <RouterLink to="/ficha/list" class="nav-link" active-class="active-link">Ficha</RouterLink>
       <RouterLink to="/atleta/list" class="nav-link" active-class="active-link">Atleta</RouterLink>
     </nav>

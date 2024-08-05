@@ -6,7 +6,7 @@ import { onMounted, ref } from 'vue'
 import { useNotification } from '@kyvg/vue3-notification'
 import { useAthleteStore } from '../stores/atleta'
 import { enumBiotipo } from '../enum/biotipo'
-import { enumTelephone } from '../enum/telefone'
+import { enumTelephone } from '../enum/telephone'
 import { validateNumber } from '../helpers/validate-number'
 
 const { notify } = useNotification()

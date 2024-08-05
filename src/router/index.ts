@@ -10,41 +10,46 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      redirect: { path: "/ficha" },
       name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/ficha',
-      name: 'ficha',
       children: [
         {
-          path: 'form',
-          name: 'form-ficha',
-          component: FichaForm
+          path: '/ficha',
+          name: 'ficha',
+          redirect: { path: "/ficha/list" },
+          children: [
+            {
+              path: 'form',
+              name: 'form-ficha',
+              component: FichaForm
+            },
+            {
+              path: 'list',
+              name: 'list-ficha',
+              component: FichaViewVue
+            }
+          ]
         },
         {
-          path: 'list',
-          name: 'list-ficha',
-          component: FichaViewVue
-        }
-      ]
-    },
-    {
-      path: '/atleta',
-      name: 'athlete',
-      children: [
-        {
-          path: 'form',
-          name: 'form-atleta',
-          component: AthleteForm
+          path: '/atleta',
+          name: 'athlete',
+          redirect: { path: "/atleta/list" },
+          children: [
+            {
+              path: 'form',
+              name: 'form-atleta',
+              component: AthleteForm
+            },
+            {
+              path: 'list',
+              name: 'list-atleta',
+              component: AthleteViewVue
+            }
+          ]
         },
-        {
-          path: 'list',
-          name: 'list-atleta',
-          component: AthleteViewVue
-        }
       ]
     },
+
     {
       path: '/about',
       name: 'about',
