@@ -1,4 +1,4 @@
-export enum enumTelefone {
+export enum enumTelephone {
     TEL = 'TEL',
     CEL = 'CEL'
 }

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import * as $SAtleta from '../api/services/athlete'
 import { enumBiotipo } from '@/enum/biotipo'
 import type { IAthlete } from '@/types/Athlete'
-import { enumTelefone } from '@/enum/telefone'
+import { enumTelephone } from '@/enum/telephone'
 
 export const useAthleteStore = defineStore('athlete', {
 
@@ -12,7 +12,7 @@ export const useAthleteStore = defineStore('athlete', {
                 nome: '',
                 email: '',
                 telefone: {
-                    tipo: enumTelefone.CEL,
+                    tipo: enumTelephone.CEL,
                     numero: ''
                 },
                 peso: 60,

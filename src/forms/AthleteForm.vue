@@ -6,7 +6,8 @@ import { onMounted, ref } from 'vue'
 import { useNotification } from '@kyvg/vue3-notification'
 import { useAthleteStore } from '../stores/atleta'
 import { enumBiotipo } from '../enum/biotipo'
-import { enumTelefone } from '../enum/telefone'
+import { enumTelephone } from '../enum/telefone'
+import { validateNumber } from '../helpers/validate-number'
 
 const { notify } = useNotification()
 
@@ -34,22 +35,10 @@ const bodyAthlete = ref({
   biotipo: enumBiotipo.ECTOMORFO,
   email: '',
   telefone: {
-    tipo: enumTelefone.CEL,
+    tipo: enumTelephone.CEL,
     numero: null
   }
 })
-
-async function validateNumber(number: string) {
-  const valid = number.replace(/\D/g, '').slice(2)
-
-  if (valid.length === 9 && valid[0] === '9') {
-    return enumTelefone.CEL
-  } else if (valid.length === 8 && /^[2-5]/.test(valid)) {
-    return enumTelefone.TEL
-  } else {
-    return new Error('Número Inválido')
-  }
-}
 
 async function createAthlete(data: any) {
   try {
@@ -98,3 +87,4 @@ onMounted(async () => {})
   max-width: 990px;
 }
 </style>
+../enum/telephone

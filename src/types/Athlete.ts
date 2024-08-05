@@ -1,12 +1,12 @@
 import type { enumBiotipo } from "@/enum/biotipo";
-import type { enumTelefone } from "@/enum/telefone";
+import type { enumTelephone } from "@/enum/telephone";
 
 export interface IAthlete {
     id?: number,
     nome: string,
     email: string,
     telefone: {
-        tipo: enumTelefone,
+        tipo: enumTelephone,
         numero: string
     },
     peso: number,
