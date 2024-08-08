@@ -13,6 +13,14 @@ const emit = defineEmits(['open-create', 'open-edit'])
 const create = (): void => {
   emit('open-create')
 }
+
+const goToFirstPage = () => {}
+
+const goToLastPage = () => {}
+
+const next = () => {}
+
+const previous = () => {}
 </script>
 
 <template>
@@ -47,18 +55,18 @@ const create = (): void => {
       <div class="d-flex justify-content-end px-4 pt-2">
         <nav aria-label="Navegação de página exemplo">
           <ul class="pagination">
-            <li class="page-item">
+            <li class="page-item" @click="goToFirstPage">
               <a class="page-link text-black" href="#"
                 ><font-awesome-icon icon=" fa-angle-double-left"
               /></a>
             </li>
-            <li class="page-item">
+            <li class="page-item" @click="previous">
               <a class="page-link text-black" href="#"><font-awesome-icon icon="arrow-left" /></a>
             </li>
-            <li class="page-item">
+            <li class="page-item" @click="next">
               <a class="page-link text-black" href="#"><font-awesome-icon icon="arrow-right" /></a>
             </li>
-            <li class="page-item">
+            <li class="page-item" @click="goToLastPage">
               <a class="page-link text-black" href="#"
                 ><font-awesome-icon icon=" fa-angle-double-right"
               /></a>
