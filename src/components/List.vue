@@ -2,25 +2,40 @@
 const props = defineProps<{
   rows: (string | number)[][]
   columns: string[]
-  pagination?: any
+  pagination: {
+    currentPage: number
+    totalPages: number
+  }
   search?: string
   title: string
   inputPlaceholder?: string
 }>()
 
-const emit = defineEmits(['open-create', 'open-edit'])
+const emit = defineEmits(['open-create', 'open-edit', 'page-changed'])
 
 const create = (): void => {
   emit('open-create')
 }
 
-const goToFirstPage = () => {}
+const goToFirstPage = () => {
+  emit('page-changed', 1)
+}
 
-const goToLastPage = () => {}
+const goToLastPage = () => {
+  emit('page-changed', props.pagination.totalPages)
+}
 
-const next = () => {}
+const next = () => {
+  if (props.pagination.currentPage < props.pagination.totalPages) {
+    emit('page-changed', props.pagination.currentPage + 1)
+  }
+}
 
-const previous = () => {}
+const previous = () => {
+  if (props.pagination.currentPage > 1) {
+    emit('page-changed', props.pagination.currentPage - 1)
+  }
+}
 </script>
 
 <template>
@@ -57,18 +72,23 @@ const previous = () => {}
           <ul class="pagination">
             <li class="page-item" @click="goToFirstPage">
               <a class="page-link text-black" href="#"
-                ><font-awesome-icon icon=" fa-angle-double-left"
+                ><font-awesome-icon icon="fa-angle-double-left"
               /></a>
             </li>
             <li class="page-item" @click="previous">
               <a class="page-link text-black" href="#"><font-awesome-icon icon="arrow-left" /></a>
+            </li>
+            <li class="page-item disabled">
+              <a class="page-link text-black" href="#">
+                Página {{ pagination.currentPage }} de {{ pagination.totalPages }}
+              </a>
             </li>
             <li class="page-item" @click="next">
               <a class="page-link text-black" href="#"><font-awesome-icon icon="arrow-right" /></a>
             </li>
             <li class="page-item" @click="goToLastPage">
               <a class="page-link text-black" href="#"
-                ><font-awesome-icon icon=" fa-angle-double-right"
+                ><font-awesome-icon icon="fa-angle-double-right"
               /></a>
             </li>
           </ul>
