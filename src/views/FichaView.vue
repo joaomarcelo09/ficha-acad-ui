@@ -9,12 +9,14 @@ const router = useRouter()
 const $fichaStore = useFichaStore()
 
 const gettedByStore = ref([])
+const searchValue = ref('')
 const pagination = ref({
   currentPage: 1,
   totalPages: 1
 })
 
 const fieldsSelected = [
+  'id',
   'nome',
   'altura_minima',
   'altura_maxima',
@@ -22,14 +24,27 @@ const fieldsSelected = [
   'peso_maximo',
   'biotipo'
 ]
-const columns = ['Nome', 'Altura mínima', 'Altura máxima', 'Peso mínimo', 'Peso máximo', 'Biotipo']
+const columns = [
+  'Id',
+  'Nome',
+  'Altura mínima',
+  'Altura máxima',
+  'Peso mínimo',
+  'Peso máximo',
+  'Biotipo',
+  'Ações'
+]
 
 const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
 
-const fetchData = async (opt?) => {
+const fetchData = async (opt?: any) => {
   const limit = opt?.rowsPerPage || 6
   const page = opt?.page || 1
-  const where = {}
+  const where = {
+    nome: {
+      contains: searchValue.value
+    }
+  }
 
   const data = await $fichaStore.findAll({ limit, page, where })
 
@@ -39,11 +54,25 @@ const fetchData = async (opt?) => {
 }
 
 const openCreate = () => {
-  router.push('form')
+  router.push('form/0')
+}
+
+const openEdit = (item: number) => {
+  router.push(`form/${item}`)
+}
+
+const onClickDelete = async (id: string) => {
+  // await $fichaStore.
+  await fetchData()
 }
 
 const onPageChanged = (page: number) => {
   fetchData({ page })
+}
+
+const onClickSearch = (search: string) => {
+  searchValue.value = search
+  fetchData()
 }
 
 onMounted(async () => {
@@ -56,6 +85,9 @@ onMounted(async () => {
     <List
       title="Ficha"
       @open-create="openCreate"
+      @open-edit="openEdit"
+      @open-delete="onClickDelete"
+      @search="onClickSearch"
       :rows="rows"
       :columns="columns"
       :pagination="pagination"

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, ref, computed } from 'vue'
+
 const props = defineProps<{
   rows: (string | number)[][]
   columns: string[]
@@ -11,10 +13,23 @@ const props = defineProps<{
   inputPlaceholder?: string
 }>()
 
-const emit = defineEmits(['open-create', 'open-edit', 'page-changed'])
+const localSearch = ref('')
+const emit = defineEmits(['open-create', 'open-edit', 'open-delete', 'page-changed', 'search'])
 
 const create = (): void => {
   emit('open-create')
+}
+
+const edit = (data: number): void => {
+  emit('open-edit', data)
+}
+
+const deleteItem = (id: number): void => {
+  emit('open-delete', id)
+}
+
+const searchItem = () => {
+  emit('search', localSearch.value)
 }
 
 const goToFirstPage = () => {
@@ -44,13 +59,17 @@ const previous = () => {
       <div class="d-flex align-items-center px-2">
         <h5 class="title">{{ title }}</h5>
         <div class="input-group mb-3">
+          <button class="btn btn-success" @click="create" type="button">Criar</button>
           <input
+            v-model="localSearch"
             type="text"
             class="form-control search-input"
             placeholder="Pesquise..."
             aria-label="Pesquise"
           />
-          <button class="btn btn-outline-secondary text-black" type="button">Buscar</button>
+          <button class="btn btn-outline-secondary text-black" @click="searchItem" type="button">
+            Buscar
+          </button>
         </div>
       </div>
       <table class="table">
@@ -64,6 +83,14 @@ const previous = () => {
         <tbody>
           <tr v-for="(row, index) of rows" :key="index">
             <td v-for="(data, dataIndex) of row" :key="dataIndex">{{ data }}</td>
+            <div class="group-btn">
+              <button class="btn btn-warning" @click="edit(row[0])" type="button">
+                <font-awesome-icon icon="pencil" />
+              </button>
+              <button class="btn btn-danger" @click="deleteItem(row[0])" type="button">
+                <font-awesome-icon icon="trash" />
+              </button>
+            </div>
           </tr>
         </tbody>
       </table>
@@ -110,6 +137,10 @@ const previous = () => {
 
 .overflow-x {
   overflow-x: auto;
+}
+
+.group-btn {
+  display: flex;
 }
 
 .search-input {

@@ -17,12 +17,12 @@ const router = createRouter({
       name: 'ficha',
       children: [
         {
-          path:'form',
+          path: 'form/:id',
           name: 'form',
           component: FichaForm
         },
         {
-          path:'list',
+          path: 'list',
           name: 'list',
           component: FichaViewVue
         }
