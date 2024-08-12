@@ -19,7 +19,7 @@ const router = createRouter({
           redirect: { path: "/ficha/list" },
           children: [
             {
-              path: 'form',
+              path: 'form/:id',
               name: 'form-ficha',
               component: FichaForm
             },

@@ -1,35 +1,97 @@
 <script setup lang="ts">
-import ListComponent from '@/components/ListComponent.vue'
+import List from '@/components/List.vue'
 import { useFichaStore } from '@/stores/ficha'
-import { onMounted, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { onMounted, ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { getRowsByJson } from '@/utils/List'
 
 const router = useRouter()
 const $fichaStore = useFichaStore()
-// const route = useRoute()
 
-const items = $fichaStore.ficha
-const columns = ref(['Nome', 'Data', 'Status'])
-const pages = ref([1, 2, 3])
-const title = ref('Ficha')
+const gettedByStore = ref([])
+const searchValue = ref('')
+const pagination = ref({
+  currentPage: 1,
+  totalPages: 1
+})
+
+const fieldsSelected = [
+  'id',
+  'nome',
+  'altura_minima',
+  'altura_maxima',
+  'peso_minimo',
+  'peso_maximo',
+  'biotipo'
+]
+const columns = [
+  'Id',
+  'Nome',
+  'Altura mínima',
+  'Altura máxima',
+  'Peso mínimo',
+  'Peso máximo',
+  'Biotipo',
+  'Ações'
+]
+
+const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
+
+const fetchData = async (opt?: any) => {
+  const limit = opt?.rowsPerPage || 6
+  const page = opt?.page || 1
+  const where = {
+    nome: {
+      contains: searchValue.value
+    }
+  }
+
+  const data = await $fichaStore.findAll({ limit, page, where })
+
+  gettedByStore.value = data.rows
+  pagination.value.totalPages = Math.ceil(data.count / limit)
+  pagination.value.currentPage = page
+}
 
 const openCreate = () => {
-  router.push('form')
+  router.push('form/0')
+}
+
+const openEdit = (item: number) => {
+  router.push(`form/${item}`)
+}
+
+const onClickDelete = async () => {
+  // await $fichaStore.
+  await fetchData()
+}
+
+const onPageChanged = (page: number) => {
+  fetchData({ page })
+}
+
+const onClickSearch = (search: string) => {
+  searchValue.value = search
+  fetchData()
 }
 
 onMounted(async () => {
-  await $fichaStore.findAll()
+  await fetchData()
 })
 </script>
 
 <template>
   <div class="body">
-    <ListComponent
+    <List
+      title="Ficha"
       @open-create="openCreate"
-      :title="title"
-      :items="items"
+      @open-edit="openEdit"
+      @open-delete="onClickDelete"
+      @search="onClickSearch"
+      :rows="rows"
       :columns="columns"
-      :pagination="pages"
+      :pagination="pagination"
+      @page-changed="onPageChanged"
     />
   </div>
 </template>

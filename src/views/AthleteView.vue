@@ -1,17 +1,51 @@
 <script setup lang="ts">
-import ListComponent from '@/components/ListComponent.vue'
-import { ref } from 'vue'
+import List from '@/components/List.vue'
+import { ref, computed } from 'vue'
+import { getRowsByJson } from '@/utils/List'
 
-const items = ref([{ nome: 'Joao Marcelo', data: '16/01/2024', status: 'Malhando' }, 'item 2'])
-const columns = ref(['Nome', 'Data', 'Status'])
-const pages = ref([1, 2, 3])
-const title = ref('Atleta')
+const pagination = ref({
+  currentPage: 1,
+  totalPages: 1
+})
+
+const gettedByStore = ref([
+  {
+    id: 23,
+    id_pessoa: 23,
+    peso: 50,
+    altura: 161,
+    biotipo: 'mesomorfo',
+    reevaluated: 0,
+    status: true,
+    created_at: '2024-03-21T02:36:27.000Z',
+    reevaluated_at: null,
+    updated_at: null,
+    deleted_at: null
+  }
+])
+
+const columns = ['Peso', 'Altura', 'Biotipo', 'Status', 'Criado em']
+const fieldsSelected = ['peso', 'altura', 'biotipo', 'status', 'created_at']
+
+const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
 </script>
 
 <template>
   <div class="body">
-    <ListComponent :title="title" :items="items" :columns="columns" :pagination="pages" />
+    <List
+      title="Atleta"
+      :rows="rows ?? []"
+      :columns="columns ?? []"
+      :pagination="pagination"
+      input-placeholder="Buscar atleta..."
+    />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.body {
+  margin-top: 10rem;
+  margin-left: 1%;
+  width: 98%;
+}
+</style>
