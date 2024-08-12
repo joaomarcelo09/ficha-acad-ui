@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps<{
   rows: (string | number)[][]
@@ -20,11 +20,11 @@ const create = (): void => {
   emit('open-create')
 }
 
-const edit = (data: number): void => {
+const edit = (data: string | number): void => {
   emit('open-edit', data)
 }
 
-const deleteItem = (id: number): void => {
+const deleteItem = (id: string | number): void => {
   emit('open-delete', id)
 }
 

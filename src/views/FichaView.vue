@@ -3,7 +3,7 @@ import List from '@/components/List.vue'
 import { useFichaStore } from '@/stores/ficha'
 import { onMounted, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { getRowsByJson, getColumnsByJson } from '@/utils/List'
+import { getRowsByJson } from '@/utils/List'
 
 const router = useRouter()
 const $fichaStore = useFichaStore()
@@ -61,7 +61,7 @@ const openEdit = (item: number) => {
   router.push(`form/${item}`)
 }
 
-const onClickDelete = async (id: string) => {
+const onClickDelete = async () => {
   // await $fichaStore.
   await fetchData()
 }

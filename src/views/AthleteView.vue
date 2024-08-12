@@ -3,6 +3,11 @@ import List from '@/components/List.vue'
 import { ref, computed } from 'vue'
 import { getRowsByJson } from '@/utils/List'
 
+const pagination = ref({
+  currentPage: 1,
+  totalPages: 1
+})
+
 const gettedByStore = ref([
   {
     id: 23,
@@ -31,7 +36,7 @@ const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
       title="Atleta"
       :rows="rows ?? []"
       :columns="columns ?? []"
-      :pagination="pages"
+      :pagination="pagination"
       input-placeholder="Buscar atleta..."
     />
   </div>
