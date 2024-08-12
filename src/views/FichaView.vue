@@ -96,10 +96,4 @@ onMounted(async () => {
   </div>
 </template>
 
-<style scoped>
-.body {
-  margin-top: 10rem;
-  margin-left: 1%;
-  width: 98%;
-}
-</style>
+<style scoped></style>

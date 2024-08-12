@@ -3,36 +3,53 @@ import HomeView from '../views/HomeView.vue'
 import FichaViewVue from '@/views/FichaView.vue'
 import AthleteViewVue from '@/views/AthleteView.vue'
 import FichaForm from '@/forms/FichaForm.vue'
+import AthleteForm from '@/forms/AthleteForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      redirect: { path: "/ficha" },
       name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/ficha',
-      name: 'ficha',
       children: [
         {
-          path: 'form/:id',
-          name: 'form',
-          component: FichaForm
+          path: '/ficha',
+          name: 'ficha',
+          redirect: { path: "/ficha/list" },
+          children: [
+            {
+              path: 'form/:id',
+              name: 'form-ficha',
+              component: FichaForm
+            },
+            {
+              path: 'list',
+              name: 'list-ficha',
+              component: FichaViewVue
+            }
+          ]
         },
         {
-          path: 'list',
-          name: 'list',
-          component: FichaViewVue
-        }
+          path: '/atleta',
+          name: 'athlete',
+          redirect: { path: "/atleta/list" },
+          children: [
+            {
+              path: 'form',
+              name: 'form-atleta',
+              component: AthleteForm
+            },
+            {
+              path: 'list',
+              name: 'list-atleta',
+              component: AthleteViewVue
+            }
+          ]
+        },
       ]
     },
-    {
-      path: '/atleta',
-      name: 'athlete',
-      component: AthleteViewVue
-    },
+
     {
       path: '/about',
       name: 'about',
