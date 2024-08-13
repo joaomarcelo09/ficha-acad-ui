@@ -3,6 +3,7 @@ import * as $SAtleta from '../api/services/athlete'
 import { enumBiotipo } from '@/enum/biotipo'
 import type { IAthlete } from '@/types/Athlete'
 import { enumTelephone } from '@/enum/telephone'
+import type { IFindAll } from '@/types/pagination/find-all'
 
 export const useAthleteStore = defineStore('athlete', {
 
@@ -24,10 +25,12 @@ export const useAthleteStore = defineStore('athlete', {
     },
 
     actions: {
-        async findAll() {
+        async findAll({ limit, page, select, orderBy, where, include }: IFindAll): Promise<any> {
             try {
-
-                return await $SAtleta.FindAll()
+                if (Object.entries(where).length == 0) {
+                    where = null
+                }
+                return await $SAtleta.FindAll({ limit, page, select, orderBy, where, include })
 
             } catch (error) {
                 console.log(error)
@@ -59,10 +62,10 @@ export const useAthleteStore = defineStore('athlete', {
             }
         },
 
-        async findOne(id: number) {
+        async findOne(id: number, { limit, page, select, orderBy, where, include }: IFindAll): Promise<any> {
 
             try {
-                return await $SAtleta.FindById(id)
+                return await $SAtleta.FindById(id, { limit, page, select, orderBy, where, include })
             } catch (error) {
                 return error
             }

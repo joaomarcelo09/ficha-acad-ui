@@ -36,7 +36,7 @@ const router = createRouter({
           redirect: { path: "/atleta/list" },
           children: [
             {
-              path: 'form',
+              path: 'form/:id',
               name: 'form-atleta',
               component: AthleteForm
             },

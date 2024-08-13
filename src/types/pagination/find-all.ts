@@ -4,4 +4,5 @@ export interface IFindAll {
     orderBy?: any
     where?: any
     select?: any
+    include?: any
 }

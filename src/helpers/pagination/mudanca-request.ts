@@ -1,7 +1,7 @@
 import type { IFindAll } from "@/types/pagination/find-all"
 
-export function mudancaParametro(url: string, { page, limit, orderBy, where, select }: IFindAll) {
-    if (page || limit || orderBy || where || select) {
+export function mudancaParametro(url: string, { page, limit, orderBy, where, select, include }: IFindAll) {
+    if (page || limit || orderBy || where || select || include) {
         url += '?'
         const mudancaUrl = (variavel: any, envio: any) => {
             if (variavel) {
@@ -18,6 +18,7 @@ export function mudancaParametro(url: string, { page, limit, orderBy, where, sel
         mudancaObject(orderBy, 'orderBy')
         mudancaObject(where, 'where')
         mudancaObject(select, 'select')
+        mudancaObject(include, 'include')
     }
     return url
 }

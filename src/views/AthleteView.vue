@@ -1,43 +1,82 @@
 <script setup lang="ts">
 import List from '@/components/List.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { getRowsByJson } from '@/utils/List'
+import { useRouter } from 'vue-router'
+import { useAthleteStore } from '@/stores/atleta'
 
+const router = useRouter()
 const pagination = ref({
   currentPage: 1,
   totalPages: 1
 })
-
-const gettedByStore = ref([
-  {
-    id: 23,
-    id_pessoa: 23,
-    peso: 50,
-    altura: 161,
-    biotipo: 'mesomorfo',
-    reevaluated: 0,
-    status: true,
-    created_at: '2024-03-21T02:36:27.000Z',
-    reevaluated_at: null,
-    updated_at: null,
-    deleted_at: null
-  }
-])
-
-const columns = ['Peso', 'Altura', 'Biotipo', 'Status', 'Criado em']
-const fieldsSelected = ['peso', 'altura', 'biotipo', 'status', 'created_at']
-
+const gettedByStore = ref([])
+const $athleteStore = useAthleteStore()
+const searchValue = ref('')
+const columns = ['Id', 'Peso', 'Altura', 'Biotipo', 'Status', 'Registrado em']
+const fieldsSelected = ['id', 'peso', 'altura', 'biotipo', 'status', 'created_at']
 const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
+
+const fetchData = async (opt?: any) => {
+  const limit = opt?.rowsPerPage || 6
+  const page = opt?.page || 1
+  const include = {
+    pessoa: true
+  }
+  const where = {
+    pessoa: {
+      nome: {
+        contains: searchValue.value
+      }
+    }
+  }
+
+  const data = await $athleteStore.findAll({ limit, page, where, include })
+
+  gettedByStore.value = data.rows
+  pagination.value.totalPages = Math.ceil(data.count / limit)
+  pagination.value.currentPage = page
+}
+
+const openCreate = () => {
+  router.push('form/0')
+}
+
+const openEdit = (item: number) => {
+  router.push(`form/${item}`)
+}
+
+const onClickDelete = async (id: string) => {
+  await $athleteStore.delete(+id)
+  await fetchData()
+}
+
+const onPageChanged = (page: number) => {
+  fetchData({ page })
+}
+
+const onClickSearch = (search: string) => {
+  searchValue.value = search
+  fetchData()
+}
+
+onMounted(async () => {
+  await fetchData()
+})
 </script>
 
 <template>
   <div class="body">
     <List
       title="Atleta"
-      :rows="rows ?? []"
-      :columns="columns ?? []"
+      @open-create="openCreate"
+      @open-edit="openEdit"
+      @open-delete="onClickDelete"
+      @search="onClickSearch"
+      :rows="rows"
+      :columns="columns"
       :pagination="pagination"
-      input-placeholder="Buscar atleta..."
+      @page-changed="onPageChanged"
     />
   </div>
 </template>

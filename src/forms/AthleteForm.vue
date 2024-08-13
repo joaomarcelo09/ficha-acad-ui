@@ -2,7 +2,8 @@
 <script setup lang="ts">
 import FormComponent from '@/components/form/FormComponent.vue'
 import FormInput from '@/components/form/FormInput.vue'
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useNotification } from '@kyvg/vue3-notification'
 import { useAthleteStore } from '../stores/atleta'
 import { enumBiotipo } from '../enum/biotipo'
@@ -10,6 +11,8 @@ import { enumTelephone } from '../enum/telephone'
 import { validateNumber } from '../helpers/validate-number'
 
 const { notify } = useNotification()
+const router = useRouter()
+const route = useRoute()
 
 const $athleteStore = useAthleteStore()
 
@@ -40,6 +43,13 @@ const bodyAthlete = ref({
   }
 })
 
+async function getAthlete() {
+  const athleteData = await $athleteStore.findOne(+route.params.id, {})
+
+  bodyAthlete.value.biotipo = athleteData.data.biotipo
+  bodyAthlete.value.nome = athleteData.data.pessoa.nome
+}
+
 async function createAthlete(data: any) {
   try {
     const validateNum = await validateNumber(data.telefone.numero)
@@ -59,12 +69,24 @@ async function createAthlete(data: any) {
   }
 }
 
-onMounted(async () => {})
+async function exitForm() {
+  router.go(-1)
+}
+
+onBeforeMount(async () => {
+  if (route.params.id !== '0') {
+    getAthlete()
+  }
+})
 </script>
 
 <template>
   <div class="body">
-    <FormComponent @save-form="createAthlete(bodyAthlete)" title="Criação de Ficha">
+    <FormComponent
+      @save-form="createAthlete(bodyAthlete)"
+      @exit-page="exitForm"
+      title="Criação de Atleta"
+    >
       <template #fields>
         <FormInput v-model="bodyAthlete.nome" type="input" label="Nome do atleta" />
         <FormInput v-model="bodyAthlete.altura" type="input" label="Altura" />
