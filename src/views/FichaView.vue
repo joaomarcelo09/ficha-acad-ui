@@ -61,8 +61,8 @@ const openEdit = (item: number) => {
   router.push(`form/${item}`)
 }
 
-const onClickDelete = async () => {
-  // await $fichaStore.
+const onClickDelete = async (id: string) => {
+  await $fichaStore.delete(+id)
   await fetchData()
 }
 

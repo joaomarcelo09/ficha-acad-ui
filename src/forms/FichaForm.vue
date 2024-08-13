@@ -1,13 +1,15 @@
-<!-- eslint-disable no-debugger -->
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 import FormComponent from '@/components/form/FormComponent.vue'
 import FormInput from '@/components/form/FormInput.vue'
 import { useFichaStore } from '@/stores/ficha'
 import { enumBiotipo } from '@/enum/biotipo'
+import { useRouter, useRoute } from 'vue-router'
 import { useNotification } from '@kyvg/vue3-notification'
 
 const { notify } = useNotification()
+const router = useRouter()
+const route = useRoute()
 
 const intensidadeSelect = ref([])
 const exerciciosSelect = ref([])
@@ -53,6 +55,25 @@ async function loadOptions() {
   }))
 }
 
+async function exitForm() {
+  router.go(-1)
+}
+
+async function getFicha() {
+  const fichaData = await $fichaStore.findOne(+route.params.id)
+
+  bodyFicha.value.nome = fichaData.data.nome
+  bodyFicha.value.biotipo = fichaData.data.biotipo
+  bodyFicha.value.peso_minimo = fichaData.data.peso_minimo
+  bodyFicha.value.peso_maximo = fichaData.data.peso_maximo
+  bodyFicha.value.altura_maxima = fichaData.data.altura_maxima
+  bodyFicha.value.altura_minima = fichaData.data.altura_minima
+  bodyFicha.value.intensidade = fichaData.data.ficha_exercicio[0].id_intensidade
+  bodyFicha.value.exercicios = fichaData.data.ficha_exercicio.map((x) => {
+    return x.id_exercicio
+  })
+}
+
 async function createFicha(bodyFicha: any) {
   try {
     const mappedExercicios = bodyFicha.exercicios.map((id: number) => ({
@@ -67,10 +88,12 @@ async function createFicha(bodyFicha: any) {
 
     $fichaStore.ficha = updatedBodyFicha
 
-    await $fichaStore.create()
+    if (route.params.id !== '0') {
+      await $fichaStore.update(+route.params.id)
+    } else await $fichaStore.create()
 
     notify({
-      title: 'Criado com sucesso',
+      title: route.params.id !== '0' ? 'Editado com sucesso' : 'Criado com sucesso',
       type: 'success'
     })
   } catch (error) {
@@ -81,14 +104,21 @@ async function createFicha(bodyFicha: any) {
   }
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   await loadOptions()
+  if (route.params.id !== '0') {
+    getFicha()
+  }
 })
 </script>
 
 <template>
   <div class="body">
-    <FormComponent @save-form="createFicha(bodyFicha)" title="Criação de Ficha">
+    <FormComponent
+      @save-form="createFicha(bodyFicha)"
+      @exit-page="exitForm"
+      title="Criação de Ficha"
+    >
       <template #fields>
         <FormInput v-model="bodyFicha.nome" type="input" label="Nome da ficha" />
         <FormInput v-model.number="bodyFicha.altura_minima" type="input" label="Altura mínima" />

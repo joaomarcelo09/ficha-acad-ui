@@ -8,6 +8,7 @@ const goBack = () => {
 
 const emit = defineEmits<{
   (e: 'saveForm', data: any): void
+  (e: 'exitPage'): void
 }>()
 
 defineProps<{
@@ -17,6 +18,10 @@ defineProps<{
 function btnSave() {
   const formData = {}
   emit('saveForm', formData)
+}
+
+function btnExit() {
+  emit('exitPage')
 }
 </script>
 
@@ -29,7 +34,7 @@ function btnSave() {
           <slot name="fields"></slot>
         </div>
         <div class="d-flex justify-content-between mt-4">
-          <button type="button" class="btn btn-secondary">Voltar</button>
+          <button type="button" @click="btnExit" class="btn btn-secondary">Voltar</button>
           <button type="submit" @click="btnSave()" class="btn btn-success">Salvar</button>
         </div>
       </div>

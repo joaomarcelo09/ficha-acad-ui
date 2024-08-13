@@ -26,7 +26,7 @@ export async function Create(data: IFicha): Promise<AxiosResponse> {
 }
 
 export async function Update(data: IFicha, id: number): Promise<AxiosResponse> {
-    return await http.post(`${router}/${id}`, data)
+    return await http.patch(`${router}/${id}`, data)
 }
 
 export async function FindById(id: string | number): Promise<AxiosResponse> {
