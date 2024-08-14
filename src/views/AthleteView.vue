@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import List from '@/components/List.vue'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeMount } from 'vue'
 import { getRowsByJson } from '@/utils/List'
 import { useRouter } from 'vue-router'
 import { useAthleteStore } from '@/stores/atleta'
@@ -13,8 +13,10 @@ const pagination = ref({
 const gettedByStore = ref([])
 const $athleteStore = useAthleteStore()
 const searchValue = ref('')
-const columns = ['Id', 'Peso', 'Altura', 'Biotipo', 'Status', 'Registrado em']
-const fieldsSelected = ['id', 'peso', 'altura', 'biotipo', 'status', 'created_at']
+
+const fieldsSelected = ['id', 'altura', 'peso', 'nome', 'biotipo']
+const columns = ['Id', 'Altura', 'Peso', 'Biotipo', 'Nome', 'Ações']
+
 const rows = computed(() => getRowsByJson(gettedByStore.value, fieldsSelected))
 
 const fetchData = async (opt?: any) => {
@@ -32,6 +34,11 @@ const fetchData = async (opt?: any) => {
   }
 
   const data = await $athleteStore.findAll({ limit, page, where, include })
+
+  data.rows = data.rows.map((x) => ({
+    ...x,
+    nome: x.pessoa.nome
+  }))
 
   gettedByStore.value = data.rows
   pagination.value.totalPages = Math.ceil(data.count / limit)
@@ -60,7 +67,7 @@ const onClickSearch = (search: string) => {
   fetchData()
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   await fetchData()
 })
 </script>

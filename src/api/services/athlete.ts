@@ -18,7 +18,7 @@ export async function Create(data: IAthlete): Promise<AxiosResponse> {
 }
 
 export async function Update(data: IAthlete, id: number): Promise<AxiosResponse> {
-    return await http.post(`${router}/${id}`, data)
+    return await http.patch(`${router}/${id}`, data)
 }
 
 export async function Revaluation(data: IAthlete, id: number): Promise<AxiosResponse> {

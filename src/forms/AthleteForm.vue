@@ -47,6 +47,10 @@ async function getAthlete() {
   const athleteData = await $athleteStore.findOne(+route.params.id, {})
 
   bodyAthlete.value.biotipo = athleteData.data.biotipo
+  bodyAthlete.value.altura = athleteData.data.altura
+  bodyAthlete.value.email = athleteData.data.pessoa.email.email
+  bodyAthlete.value.telefone = athleteData.data.pessoa.telefone
+  bodyAthlete.value.peso = athleteData.data.peso
   bodyAthlete.value.nome = athleteData.data.pessoa.nome
 }
 
@@ -54,11 +58,17 @@ async function createAthlete(data: any) {
   try {
     const validateNum = await validateNumber(data.telefone.numero)
     data.telefone.tipo = validateNum
+    data.status = true
+    data.peso = +data.peso
+    data.altura = +data.altura
     $athleteStore.atleta = data
-    await $athleteStore.create()
+
+    if (route.params.id !== '0') {
+      await $athleteStore.update(+route.params.id)
+    } else await $athleteStore.create()
 
     notify({
-      title: 'Criado com sucesso',
+      title: route.params.id !== '0' ? 'Editado com sucesso' : 'Criado com sucesso',
       type: 'success'
     })
   } catch (error) {
