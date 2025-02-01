@@ -1,88 +1,46 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import Sidebar from './components/struture/SideBar.vue'
+import Header from './components/struture/HeaderBar.vue'
 </script>
 
 <template>
-  <div class="sidebar">
-      <nav>
-        <RouterLink to="/">Início</RouterLink>
-        <RouterLink to="/ficha/list">Ficha</RouterLink>
-        <RouterLink to="/atleta">Atleta</RouterLink>
-      </nav>
+  <div class="main-container">
+    <notifications class="notify" width="300px" closeOnClick />
+    <Sidebar />
+    <div class="content d-flex flex-column align-items-center">
+      <Header />
+      <RouterView class="body" />
+    </div>
   </div>
-  <div class="content">
-    <header>
-      Projeto Academia
-    </header>
-  <RouterView />
-</div>
 </template>
 
 <style scoped>
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 12rem;
-  background-color: #f1f1f1;
+.main-container {
+  display: flex;
+  justify-content: center;
   position: fixed;
+  background-color: var(--light-gray);
+  width: 100%;
   height: 100%;
-  overflow: auto;
 }
 
-header {
-  line-height: 1.5;
-  background-color: lightgray;
-  height: 4rem;
+.notify {
+  margin: 5rem 2rem 5rem;
 }
 
 div.content {
-  margin-left: 12rem;
-  height: auto;
-}
-
-nav {
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
- 
+  height: 100%;
+  align-items: center;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-  background-color:#d3d3d3;
-}
-
-nav a.router-link-exact-active:hover {
-  background-color:#d3d3d3;
-}
-
-nav a {
-  display: block;
-  color: #000000;
-  width: auto;
-  padding: 10px;
-  text-decoration: none;
-}
-
-nav a:hover {
-  background-color: #f0f8ff;
-}
-
-nav a:first-of-type {
-  border: 0;
+.body {
+  margin-top: 10rem;
+  width: 95%;
 }
 
 @media (min-width: 1024px) {
-
-  header {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
   nav {
     text-align: center;
     font-size: 1rem;
